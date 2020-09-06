@@ -7,9 +7,16 @@ interface Props {
 }
 
 class Square extends React.Component<Props> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            value: null,
+        };
+    }
+
     render() {
         return (
-            <button className="square">
+            <button className="square" onClick={() => { alert('click');} }>
                 {this.props.value}
             </button>
         );
