@@ -6,7 +6,12 @@ interface Props {
     value: number;
 }
 
-class Square extends React.Component<Props> {
+interface State {
+    value?: any;
+    squares?: any;
+}
+
+class Square extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -16,16 +21,23 @@ class Square extends React.Component<Props> {
 
     render() {
         return (
-            <button className="square" onClick={() => { alert('click');} }>
-                {this.props.value}
+            <button className="square" onClick={() => this.setState({ value: 'X' }) }>
+                {this.state.value}
             </button>
         );
     }
 }
 
-class Board extends React.Component {
-    renderSquare(i: number) {
-        return <Square value={i} />;
+class Board extends React.Component<{}, State> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null)
+        }
+    }
+
+    private renderSquare(i: number) {
+        return <Square value={this.state.squares[i]} />;
     }
 
     render() {
